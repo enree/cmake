@@ -46,23 +46,24 @@ if (NOT MODULES)
 endif()
 
 include (${BUILD_SCRIPTS_PATH}/make/definitions.cmake)
-setCompilerOptions()
+setupCompiler()
 
 # Version
 include (${BUILD_SCRIPTS_PATH}/make/version.cmake)
 defineVersion()
 
-# Install and config paths
-include (${BUILD_SCRIPTS_PATH}/make/paths.cmake)
-
 # Cmake build functions and macros
 include (${BUILD_SCRIPTS_PATH}/make/boost.cmake)
+include (${BUILD_SCRIPTS_PATH}/make/qt.cmake)
+include (${BUILD_SCRIPTS_PATH}/make/sources.cmake)
+include (${BUILD_SCRIPTS_PATH}/make/threads.cmake)
 
 # Define path for global generated includes and generate defs file
 set(GLOBAL_GENERATED_INCLUDES ${CMAKE_BINARY_DIR}/include)
 include_directories(${GLOBAL_GENERATED_INCLUDES})
 
-configure_file(${TEMPLATES_PATH}/defs.h.in ${GLOBAL_GENERATED_INCLUDES}/Defs.h @ONLY)
+configure_file(${BUILD_SCRIPTS_PATH}/templates/defs.h.in
+    ${GLOBAL_GENERATED_INCLUDES}/Defs.h @ONLY)
 
 # Define path for generated configs
 set(GENERATED_CONFIG ${CMAKE_BINARY_DIR}/config)

@@ -24,6 +24,6 @@ function(useBoost)
     endif()
 
     find_package(Boost REQUIRED COMPONENTS  ${USEBOOST_UNPARSED_ARGUMENTS})
-    target_include_directories(${USEBOOST_TARGET} ${Boost_INCLUDE_DIRS})
+    target_include_directories(${USEBOOST_TARGET} PRIVATE ${Boost_INCLUDE_DIRS})
     target_link_libraries(${USEBOOST_TARGET} ${Boost_LIBRARIES})
 endfunction(useBoost)
