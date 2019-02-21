@@ -1,0 +1,35 @@
+/**
+ * Auto-generated file. Do not modify it manually.
+ * Base definitions for project
+ */
+
+#pragma once
+
+namespace build
+{
+
+// Organization name
+constexpr auto ORGANIZATION_NAME = "@ORGANIZATION_NAME@";
+
+// Project version string (MAJOR.MINOR.FIX)
+constexpr auto VERSION = "@VERSION@";
+
+// Build revision (git sha)
+constexpr auto REVISION = "@REVISION@";
+
+// Build number (from jenkins)
+constexpr auto BUILD_NUMBER = "@BUILD_NUMBER@";
+
+// Build date
+constexpr auto BUILD_DATE = "@BUILD_DATE@";
+
+// Build year
+constexpr auto BUILD_YEAR = "@BUILD_YEAR@";
+
+// Compiler identification
+constexpr auto COMPILER_ID = "@CMAKE_CXX_COMPILER_ID@";
+
+// Compiler version string
+constexpr auto COMPILER_VERSION = "@CMAKE_CXX_COMPILER_VERSION@";
+
+} // namespace build
