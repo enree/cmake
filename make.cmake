@@ -27,42 +27,39 @@ endif()
 set(TESTS_PATH ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 
 # All latter definitions should be called only once in root module
-if(__add_cmake_definitions)
+if(__cmake_definitions)
     return()
 endif()
-set(__add_cmake_definitions YES)
+set(__cmake_definitions TRUE)
 
-# Templates
-set(TEMPLATES_PATH ${BUILD_SCRIPTS_PATH}/templates)
-
-set(BUILD_SCRIPTS_PATH ${CMAKE_CURRENT_LIST_DIR})
+set(CMAKE_SCRIPTS_PATH ${CMAKE_CURRENT_LIST_DIR})
 
 # Cmake utils
-include(${BUILD_SCRIPTS_PATH}/make/utils.cmake)
+include(${CMAKE_SCRIPTS_PATH}/make/utils.cmake)
 
 # Project definitions
 if (NOT MODULES)
     set (MODULES ${CMAKE_SOURCE_DIR}/modules)
 endif()
 
-include (${BUILD_SCRIPTS_PATH}/make/definitions.cmake)
+include (${CMAKE_SCRIPTS_PATH}/make/definitions.cmake)
 setupCompiler()
 
 # Version
-include (${BUILD_SCRIPTS_PATH}/make/version.cmake)
+include (${CMAKE_SCRIPTS_PATH}/make/version.cmake)
 defineVersion()
 
 # Cmake build functions and macros
-include (${BUILD_SCRIPTS_PATH}/make/boost.cmake)
-include (${BUILD_SCRIPTS_PATH}/make/qt.cmake)
-include (${BUILD_SCRIPTS_PATH}/make/sources.cmake)
-include (${BUILD_SCRIPTS_PATH}/make/threads.cmake)
+include (${CMAKE_SCRIPTS_PATH}/make/boost.cmake)
+include (${CMAKE_SCRIPTS_PATH}/make/qt.cmake)
+include (${CMAKE_SCRIPTS_PATH}/make/sources.cmake)
+include (${CMAKE_SCRIPTS_PATH}/make/threads.cmake)
 
 # Define path for global generated includes and generate defs file
 set(GLOBAL_GENERATED_INCLUDES ${CMAKE_BINARY_DIR}/include)
 include_directories(${GLOBAL_GENERATED_INCLUDES})
 
-configure_file(${BUILD_SCRIPTS_PATH}/templates/defs.h.in
+configure_file(${CMAKE_SCRIPTS_PATH}/templates/defs.h.in
     ${GLOBAL_GENERATED_INCLUDES}/Defs.h @ONLY)
 
 # Define path for generated configs

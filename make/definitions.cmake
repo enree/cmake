@@ -2,7 +2,7 @@
 macro(setupCompiler)
     # gcc 6+ use c++11 by default
     # warnings about auto_ptr in boost 1.55
-    set(WARNING_FLAGS "-Wall -Wextra -Werror -pedantic -Woverloaded-virtual -Winit-self -Wno-unused-parameter -Wno-deprecated-declarations")
+    set(WARNING_FLAGS "-Wall -Wextra -Werror -Woverloaded-virtual -Winit-self -Wno-unused-parameter -Wno-deprecated-declarations")
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS}")
     
     if (NOT CMAKE_CXX_STANDARD)
