@@ -5,8 +5,11 @@
 
 #pragma once
 
-namespace build
-{
+//namespace build
+//{
+
+// Organization name
+constexpr auto METAPACKAGE_NAME = "@METAPACKAGE_NAME@";
 
 // Organization name
 constexpr auto ORGANIZATION_NAME = "@ORGANIZATION_NAME@";
@@ -32,4 +35,4 @@ constexpr auto COMPILER_ID = "@CMAKE_CXX_COMPILER_ID@";
 // Compiler version string
 constexpr auto COMPILER_VERSION = "@CMAKE_CXX_COMPILER_VERSION@";
 
-} // namespace build
+//} // namespace build
