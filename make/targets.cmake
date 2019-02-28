@@ -49,6 +49,7 @@ endmacro()
 # TARGET - target name
 # SOURCES - list of source files to include to build
 # GLOBBING - regexp for parsing sources recursively
+# EXCEPTS - do not include files
 # LIBS - list of libraries to link to target
 # QT - list of Qt modules to add to target
 # BOOST - list of boost modules to add to target
@@ -87,6 +88,7 @@ macro(binaryTarget TARGET TYPE)
         sources(
             _srcInternal
             GLOBBING ${OPTIONS_GLOBBING}
+            EXCEPT ${OPTIONS_EXCEPT} ".*/_includes.*"
             RECURSIVE ${OPTIONS_RECURSIVE}
         )
     endif()
@@ -102,8 +104,11 @@ macro(binaryTarget TARGET TYPE)
         add_executable(${TARGET} ${OPTIONS_SOURCES} ${_srcInternal})
     elseif(TYPE_ STREQUAL "PLUGIN")
         set(OPTIONS_QT Core ${OPTIONS_QT})
-        add_library(${TARGET} ${OPTIONS_SOURCES} ${_srcInternal})
+        add_library(${TARGET} SHARED ${OPTIONS_SOURCES} ${_srcInternal})
     endif()
+
+    set_target_properties(${TARGET} PROPERTIES
+        "INTERFACE_INCLUDE_DIRECTORIES" "${CMAKE_CURRENT_SOURCE_DIR}/_includes")
 
     if (NOT OPTIONS_NOINSTALL)
         # Merge component dependencies
@@ -212,7 +217,6 @@ endmacro(executable)
 
 macro(qtPlugin TARGET)
     add_definitions(-DQT_PLUGIN)
-    add_definitions(-DQT_SHARED)
 
     if (NOT DEFINED PLUGIN_PATH)
         message(FATAL_ERROR "PLUGIN_PATH is empty, you must define it first")
@@ -220,6 +224,7 @@ macro(qtPlugin TARGET)
 
     binaryTarget(${TARGET} PLUGIN ${ARGN})
 endmacro()
+
 
 # Add custom target for headers. No compilation here just for IDE
 # Options:
