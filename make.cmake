@@ -58,12 +58,21 @@ include (${CMAKE_SCRIPTS_PATH}/make/sources.cmake)
 include (${CMAKE_SCRIPTS_PATH}/make/targets.cmake)
 include (${CMAKE_SCRIPTS_PATH}/make/threads.cmake)
 
+
 # Define path for global generated includes and generate defs file
 set(GLOBAL_GENERATED_INCLUDES ${CMAKE_BINARY_DIR}/include)
 include_directories(${GLOBAL_GENERATED_INCLUDES})
+
+include (${CMAKE_SCRIPTS_PATH}/make/platform.cmake) # Always define pltform
+
+# Add gsl includes
+include_directories(${CMAKE_SOURCE_DIR}/modules/gsl/include)
 
 configure_file(${CMAKE_SCRIPTS_PATH}/templates/defs.h.in
     ${GLOBAL_GENERATED_INCLUDES}/Defs.h @ONLY)
 
 # Define path for generated configs
 set(GENERATED_CONFIG ${CMAKE_BINARY_DIR}/config)
+
+# Dynamic boost log
+add_definitions(-DBOOST_LOG_DYN_LINK)

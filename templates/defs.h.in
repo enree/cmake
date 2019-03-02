@@ -8,12 +8,6 @@
 //namespace build
 //{
 
-// Organization name
-constexpr auto METAPACKAGE_NAME = "@METAPACKAGE_NAME@";
-
-// Organization name
-constexpr auto ORGANIZATION_NAME = "@ORGANIZATION_NAME@";
-
 // Project version string (MAJOR.MINOR.FIX)
 constexpr auto VERSION = "@VERSION@";
 
