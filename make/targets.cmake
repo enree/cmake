@@ -88,7 +88,7 @@ macro(binaryTarget TARGET TYPE)
         sources(
             _srcInternal
             GLOBBING ${OPTIONS_GLOBBING}
-            EXCEPT ${OPTIONS_EXCEPT} ".*/_includes.*"
+            EXCEPT ${OPTIONS_EXCEPT}
             RECURSIVE ${OPTIONS_RECURSIVE}
         )
     endif()
@@ -107,8 +107,10 @@ macro(binaryTarget TARGET TYPE)
         add_library(${TARGET} SHARED ${OPTIONS_SOURCES} ${_srcInternal})
     endif()
 
+    set(TARGET_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/_includes")
+    target_include_directories(${TARGET} PRIVATE "${TARGET_INCLUDE_PATH}")
     set_target_properties(${TARGET} PROPERTIES
-        "INTERFACE_INCLUDE_DIRECTORIES" "${CMAKE_CURRENT_SOURCE_DIR}/_includes")
+        "INTERFACE_INCLUDE_DIRECTORIES" "${TARGET_INCLUDE_PATH}")
 
     if (NOT OPTIONS_NOINSTALL)
         # Merge component dependencies

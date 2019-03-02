@@ -15,7 +15,7 @@ macro(updateTs TARGET FILE SOURCE_DIR)
 
     set(ENV{LINGUIST} "${LINGUIST_EXECUTABLE}")
     set(ENV{LUPDATE} "${LUPDATE_EXECUTABLE}")
-    execute_process(COMMAND ${BUILD_SCRIPTS_PATH}/tools/update_ts.sh ${_args}
+    execute_process(COMMAND ${CMAKE_SCRIPTS_PATH}/tools/update_ts.sh ${_args}
         RESULT_VARIABLE RESULT_CODE)
 
     if (NOT RESULT_CODE STREQUAL "0")
@@ -35,7 +35,7 @@ macro(updatePo DOMAIN SOURCE_DIR TARGET)
         list(APPEND _args "true")
     endif()
 
-    execute_process(COMMAND ${BUILD_SCRIPTS_PATH}/tools/update_po.sh ${_args}
+    execute_process(COMMAND ${CMAKE_SCRIPTS_PATH}/tools/update_po.sh ${_args}
         RESULT_VARIABLE RESULT_CODE)
 
     if (NOT RESULT_CODE STREQUAL "0")
@@ -47,7 +47,6 @@ macro(compileTsFiles TARGET PATH COMPONENT)
     set (FILES ${ARGN})
     # Handle Qt files
     if(FILES)
-        include(${BUILD_SCRIPTS_PATH}/make/useQt.cmake)
         debug("Processing TS files: " "${FILES}")
         set(qm "${CMAKE_CURRENT_BINARY_DIR}/${TRANSLATION_DOMAIN}_ru.qm")
 
@@ -121,7 +120,7 @@ endfunction(compileTranslations)
 macro(i18n TARGET LOCALE SOURCE_DIR UPDATE_TRANSLATION)
     set(TS_FILE "${SOURCE_DIR}/${TARGET}_${LOCALE}.ts")
     if (EXISTS ${TS_FILE})
-        if (${UPDATE_TRANSLATION} AND NOT ${IGNORE_TRANSLATION_UPDATE})
+        if (${UPDATE_TRANSLATION})
             updateTs(${TARGET} ${TS_FILE} ${SOURCE_DIR})
         endif()
 
@@ -129,7 +128,7 @@ macro(i18n TARGET LOCALE SOURCE_DIR UPDATE_TRANSLATION)
         set(${TRANSLATION_DOMAIN}_TS_FILES ${${TRANSLATION_DOMAIN}_TS_FILES} PARENT_SCOPE)
     endif()
 
-    if (${UPDATE_TRANSLATION} AND NOT ${IGNORE_TRANSLATION_UPDATE})
+    if (${UPDATE_TRANSLATION})
         updatePo(${TRANSLATION_DOMAIN} ${SOURCE_DIR} ${TARGET})
     endif()
 
