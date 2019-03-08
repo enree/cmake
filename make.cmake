@@ -51,6 +51,7 @@ defineVersion()
 
 # Cmake build functions and macros
 include (${CMAKE_SCRIPTS_PATH}/make/boost.cmake)
+include (${CMAKE_SCRIPTS_PATH}/make/configs.cmake)
 include (${CMAKE_SCRIPTS_PATH}/make/i18n.cmake)
 include (${CMAKE_SCRIPTS_PATH}/make/paths.cmake)
 include (${CMAKE_SCRIPTS_PATH}/make/qt.cmake)

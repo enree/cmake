@@ -137,16 +137,23 @@ macro(binaryTarget TARGET TYPE)
     linkBoost(${TARGET} ${OPTIONS_BOOST})
     linkLibs(${TARGET} ${OPTIONS_LIBS} ${OPTIONS_DEPENDS})
 
-#    installTarget()
+    installTarget(${TARGET} ${TYPE_} NOINSTALL ${OPTIONS_NOINSTALL}
+        COMPONENT ${OPTIONS_COMPONENT}
+        LIBS ${OPTOINS_LIBS}
+        DEPENDS ${OPTIONS_DEPENDS})
 endmacro()
 
-macro(installTarget)
+macro(installTarget TARGET TYPE)
+    set(oneValueArgs NOINSTALL COMPONENT)
+    set(multiValueArgs LIBS DEPENDS)
+    cmake_parse_arguments(OPTIONS "" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
     if (NOT OPTIONS_NOINSTALL)
         if (OPTIONS_LIBS)
             message(FATAL_ERROR "One should not have any LIBS options for INSTALL target. Use DEPENDS instead")
         endif()
 
-        if(TYPE_ STREQUAL "PLUGIN")
+        if(${TYPE} STREQUAL "PLUGIN")
             # If destination path is relative we should put plugins to directory related to binary path
             convertRelativePath(${PLUGIN_PATH} INSTALL_PLUGIN_PATH)
             debug("Install plugin [${PROJECT_NAME}] to " ${INSTALL_PLUGIN_PATH})
