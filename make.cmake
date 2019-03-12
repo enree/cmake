@@ -77,3 +77,5 @@ set(GENERATED_CONFIG ${CMAKE_BINARY_DIR}/config)
 
 # Dynamic boost log
 add_definitions(-DBOOST_LOG_DYN_LINK)
+
+include(${CMAKE_SCRIPTS_PATH}/check/lint.cmake)
