@@ -23,14 +23,13 @@ macro(enableClangTidy TARGET)
                 set(OPTIONS_CHECKS "clang-diagnostic-*,clang-analyzer-*,bugpone-*,\
                     cppcoreguidelines-*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,\
                     -cppcoreguidelines-pro-bounds-pointer-arithmetic,\
-                    -cppcoreguidelines-pro-type-reinterpret-cast,\
-                    -cppcoreguidelines-special-member-functions,\
                     -cppcoreguidelines-pro-bounds-constant-array-index,\
                     -cppcoreguidelines-owning-memory,\
+                    -cppcoreguidelines-pro-type-reinterpret-cast,\
+                    -cppcoreguidelines-special-member-functions,\
                     hicpp-*,-hicpp-no-array-decay,-hicpp-special-member-functions,\
                     llvm-*,-llvm-namespace-comment,\
-                    modernize-*,performance-*,readability-*,\
-                    -readability-implicit-bool-conversion")
+                    modernize-*,performance-*,readability-*")
             endif()
 
             set_target_properties(${TARGET}
