@@ -15,10 +15,12 @@ set(_useQt true)
 # Now boost has Q_FOREACH inside and everybody happy.
 add_definitions(-Dforeach=Q_FOREACH)
 
-if (DEFINED QT_QMAKE_EXECUTABLE)
-    execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_VERSION OUTPUT_VARIABLE QT_VERSION)
-    message("Installed Qt version: ${QT_VERSION}")
+if (NOT DEFINED)
+    set(QT_QMAKE_EXECUTABLE qmake)
 endif()
+
+execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_VERSION OUTPUT_VARIABLE QT_VERSION)
+message("Installed Qt version: ${QT_VERSION}")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
