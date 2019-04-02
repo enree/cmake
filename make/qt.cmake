@@ -15,12 +15,9 @@ set(_useQt true)
 # Now boost has Q_FOREACH inside and everybody happy.
 add_definitions(-Dforeach=Q_FOREACH)
 
-if (NOT DEFINED)
+if (NOT DEFINED QT_QMAKE_EXECUTABLE)
     set(QT_QMAKE_EXECUTABLE qmake)
 endif()
-
-execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_VERSION OUTPUT_VARIABLE QT_VERSION)
-message("Installed Qt version: ${QT_VERSION}")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -57,6 +54,10 @@ function(setQtBinaryVar VARIABLE PROGRAM PATH HELP_STRING)
 endfunction()
 
 macro(setupQtVariables)
+    message(STATUS "-------------------------------------Qt------------------------------")
+    execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_VERSION OUTPUT_VARIABLE QT_VERSION)
+    message("Installed Qt version: ${QT_VERSION}")
+
     execute_process(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_INSTALL_BINS OUTPUT_VARIABLE QT_BINARIES_PATH)
     setQtBinaryVar(MOC_EXECUTABLE "moc" "${QT_BINARIES_PATH}" "Meta Object compiler")
     setQtBinaryVar(UIC_EXECUTABLE "uic" "${QT_BINARIES_PATH}" "UI compiler")
@@ -69,6 +70,7 @@ macro(setupQtVariables)
     setQtBinaryVar(LRELEASE_EXECUTABLE "lrelease" "${QT_BINARIES_PATH}" "lrelease")
     setQtBinaryVar(DESIGNER_EXECUTABLE "designer" "${QT_BINARIES_PATH}" "UI designer")
     setQtBinaryVar(LINGUIST_EXECUTABLE "linguist" "${QT_BINARIES_PATH}" "Linguist")
+    message(STATUS "========================================================================")
 endmacro()
 
 function(useQtModules)
@@ -81,8 +83,7 @@ function(useQtModules)
     foreach(module ${USEQT_UNPARSED_ARGUMENTS})
         useQtModule(${USEQT_TARGET} ${module})
     endforeach(module)
-
-    setupQtVariables()
 endfunction(useQtModules)
 
+setupQtVariables()
 
