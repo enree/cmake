@@ -29,7 +29,8 @@ macro(enableClangTidy TARGET)
                     -cppcoreguidelines-special-member-functions,\
                     hicpp-*,-hicpp-no-array-decay,-hicpp-special-member-functions,\
                     llvm-*,-llvm-namespace-comment,\
-                    modernize-*,performance-*,readability-*")
+                    modernize-*,-modernize-concat-nested-namespaces,\
+                    performance-*,readability-*")
             endif()
 
             set_target_properties(${TARGET}
